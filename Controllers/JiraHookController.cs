@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using GhJiraIntegration.Client;
+using GhJiraIntegration.Models;
 
 namespace GhJiraIntegration.Controllers
 {
@@ -9,10 +12,19 @@ namespace GhJiraIntegration.Controllers
     public class JiraHookController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Post(object payload)
+        public async Task<IActionResult> Post([FromBody] GitWebHookRequest request)
         {
-            Console.WriteLine("we're logging");
-            return Ok("Works");
+            if (request.Ref_Type != "branch") return BadRequest("Not a branch payload");
+
+            if (request.IsReleaseBranch())
+            {
+                var client = new JiraClient();
+                await client.CreateTicket();
+
+                return Ok("Created ticket");
+            }
+
+            return Ok("Nothing to do");
         }
 
         [HttpGet]
