@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace GhJiraIntegration.Controllers
@@ -8,15 +9,16 @@ namespace GhJiraIntegration.Controllers
     public class JiraHookController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Create(object payload)
+        public IActionResult Post(object payload)
         {
-            Debug.Write(payload);
+            Console.WriteLine("we're logging");
             return Ok("Works");
         }
 
         [HttpGet]
-        public IActionResult HealthCheck()
+        public IActionResult Get()
         {
+            Console.WriteLine("we're good");
             return Ok("We're good");
         }
     }
