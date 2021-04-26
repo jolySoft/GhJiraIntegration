@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhJiraIntegration", "GhJiraIntegration.csproj", "{03E5EA41-AA8C-4519-9F61-3D6B8DC4D01C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhJiraIntegration", "GhJiraIntegration.csproj", "{FE7DAD34-108D-45B0-8760-F563AC6C76E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{03E5EA41-AA8C-4519-9F61-3D6B8DC4D01C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03E5EA41-AA8C-4519-9F61-3D6B8DC4D01C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03E5EA41-AA8C-4519-9F61-3D6B8DC4D01C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03E5EA41-AA8C-4519-9F61-3D6B8DC4D01C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE7DAD34-108D-45B0-8760-F563AC6C76E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE7DAD34-108D-45B0-8760-F563AC6C76E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE7DAD34-108D-45B0-8760-F563AC6C76E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE7DAD34-108D-45B0-8760-F563AC6C76E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1E8353C8-B49E-41DC-8404-66DCBCEA792C}
+		SolutionGuid = {20D41039-4267-42BF-9EE1-BB082C85EB6E}
 	EndGlobalSection
 EndGlobal
