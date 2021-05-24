@@ -25,8 +25,8 @@ namespace GhJiraIntegration.Controllers
                 var client = new JiraClient();
 
                 var githubClient = new GithubClient();
-
-                var githubResponse = await githubClient.GetFromGithub("https://api.github.com/repos/jolySoft/GhJiraIntegration/compare/production...main?");
+                var releaseBranch = "release/2021.";
+                var githubResponse = await githubClient.GetFromGithub($"https://api.github.com/repos/jolySoft/GhJiraIntegration/compare/production...{releaseBranch}");
                 var stringContent = await githubResponse.Content.ReadAsStringAsync();
                 var jsonResponse = JsonConvert.DeserializeObject<GitWebhookBranchCompareResponse>(stringContent);
                 //curl - X GET https://api.github.com/repos/jolySoft/GhJiraIntegration--ParamCompare/compare/main...production
