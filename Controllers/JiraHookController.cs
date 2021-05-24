@@ -21,7 +21,15 @@ namespace GhJiraIntegration.Controllers
             if (request.IsReleaseBranch())
             {
                 var client = new JiraClient();
-                var response = new GitWebhookBranchCompareResponse();
+
+                //curl - X GET https://api.github.com/repos/jolySoft/GhJiraIntegration--ParamCompare/compare/main...production
+
+                var response = new GitWebhookBranchCompareResponse
+                {
+                    ahead_by = 2,
+                    commits = new Commit2[] { new Commit2 { commit = new Commit3 { message = "GHIN-6 Create version before creating ticket" } } }
+                };
+                
                 var ticketNumberRegex = new Regex(@"GHIN-\d+");
                 if(response.ahead_by > 0)
                 {
