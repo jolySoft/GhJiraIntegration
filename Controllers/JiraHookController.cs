@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using GhJiraIntegration.Client;
 using GhJiraIntegration.Models;
+using System.Text.RegularExpressions;
 
 namespace GhJiraIntegration.Controllers
 {
@@ -20,6 +21,20 @@ namespace GhJiraIntegration.Controllers
             if (request.IsReleaseBranch())
             {
                 var client = new JiraClient();
+                var response = new GitWebhookBranchCompareResponse();
+                var ticketNumberRegex = new Regex(@"GHIN-\d+");
+                if(response.ahead_by > 0)
+                {
+                    var ticketList = new HashSet<string>();
+                    foreach(var commit in response.commits)
+                    {
+                        if (commit.commit.message.Contains("GHIN-"))
+                        {
+                            var ticketNumber = commit.commit.message;
+                            ticketList.Add(ticketNumberRegex.Match(ticketNumber).ToString());
+                        }    
+                    }
+                }
                 await client.CreateTicket(request.Ref, new List<string>());
 
                 return Ok("Created ticket");
