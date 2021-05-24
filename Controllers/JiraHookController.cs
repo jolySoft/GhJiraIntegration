@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GhJiraIntegration.Client;
 using GhJiraIntegration.Models;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace GhJiraIntegration.Controllers
 {
@@ -31,9 +32,9 @@ namespace GhJiraIntegration.Controllers
                 };
                 
                 var ticketNumberRegex = new Regex(@"GHIN-\d+");
+                var ticketList = new HashSet<string>();
                 if(response.ahead_by > 0)
                 {
-                    var ticketList = new HashSet<string>();
                     await client.CreateVersion(request.Ref);
                     foreach(var commit in response.commits)
                     {
@@ -44,7 +45,7 @@ namespace GhJiraIntegration.Controllers
                         }    
                     }
                 }
-                await client.CreateTicket(request.Ref, new List<string>());
+                await client.CreateTicket(request.Ref, ticketList.ToList());
 
                 return Ok("Created ticket");
             }
