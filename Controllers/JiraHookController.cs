@@ -7,6 +7,7 @@ using GhJiraIntegration.Client;
 using GhJiraIntegration.Models;
 using System.Text.RegularExpressions;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace GhJiraIntegration.Controllers
 {
@@ -23,6 +24,10 @@ namespace GhJiraIntegration.Controllers
             {
                 var client = new JiraClient();
 
+                var githubClient = new GithubClient();
+
+                var githubResponse = await githubClient.GetFromGithub("https://api.github.com/repos/jolySoft/GhJiraIntegration--ParamCompare/compare/main...production");
+                var jsonResponse = JsonConvert.DeserializeObject<GitWebhookBranchCompareResponse>( githubResponse.ToString());
                 //curl - X GET https://api.github.com/repos/jolySoft/GhJiraIntegration--ParamCompare/compare/main...production
 
                 var response = new GitWebhookBranchCompareResponse
