@@ -18,14 +18,4 @@ namespace GhJiraIntegration.Models
          public string description { get; set; }
          public Issuetype issuetype { get; set; }
      }
-
-     public class Project
-     {
-         public string key { get; set; } //project key
-     }
-
-     public class Issuetype
-     {
-         public string name { get; set; }  //Can be type of issue e.g. bug, story, task.
-     }
 }

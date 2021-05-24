@@ -1,8 +1,10 @@
 ﻿using GhJiraIntegration.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,14 +13,15 @@ namespace GhJiraIntegration.Client
     public class JiraClient
     {
         private HttpClient _jiraClient;
+        private List<string> _ticketUrls;
 
         public JiraClient()
         {
             _jiraClient = new HttpClient();
-
+            _ticketUrls = new List<string>();
         }
 
-        public async Task CreateTicket(string summary)
+        public async Task CreateTicket(string summary, List<string> ticketNumbers)
         {
             var jiraRequest = new JiraIssueRequest()
             {
@@ -29,7 +32,6 @@ namespace GhJiraIntegration.Client
                     {
                         key = "GHIN",
                     },
-                    description = summary,
                     issuetype = new Issuetype
                     {
                         name = "Task",
@@ -37,7 +39,21 @@ namespace GhJiraIntegration.Client
                 }
             };
 
+            jiraRequest.fields.description = GetTicketUrls(ticketNumbers);
+
             await PostToJira(jiraRequest, @"https://gibhubintegration.atlassian.net/rest/api/3/issue/");
+        }
+
+        private string GetTicketUrls(List<string> ticketNumbers)
+        {
+            var urls = new StringBuilder();
+
+            foreach (var ticketNumber in ticketNumbers)
+            {
+                urls.Append($"https://gibhubintegration.atlassian.net/browse/${ticketNumber}\n");
+            }
+
+            return urls.ToString();
         }
 
         public async Task CreateVersion(string fixVersion)
@@ -53,7 +69,7 @@ namespace GhJiraIntegration.Client
             await PostToJira(jiraRequest, @"https://gibhubintegration.atlassian.net/rest/api/3/version/");
         }
 
-        private async Task PostToJira(object jiraRequest, string url)
+        private async Task<HttpResponseMessage> PostToJira(object jiraRequest, string url)
         {
             var json = JsonConvert.SerializeObject(jiraRequest);
             //construct content to send
@@ -70,7 +86,8 @@ namespace GhJiraIntegration.Client
                     Authorization = authorization
                 }
             };
-            await _jiraClient.SendAsync(request);
+            
+            return await _jiraClient.SendAsync(request);
         }
     }
 }

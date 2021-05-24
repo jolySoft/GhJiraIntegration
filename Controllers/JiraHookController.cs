@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace GhJiraIntegration.Controllers
             if (request.IsReleaseBranch())
             {
                 var client = new JiraClient();
-                await client.CreateTicket(request.Ref);
+                await client.CreateTicket(request.Ref, new List<string>());
 
                 return Ok("Created ticket");
             }
