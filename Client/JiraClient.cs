@@ -61,7 +61,7 @@ namespace GhJiraIntegration.Client
             var jiraRequest = new JiraVersionRequest
             {
                 name = fixVersion,
-                description = $"This is for release: ${fixVersion}",
+                description = $"This is for release: {fixVersion}",
                 projectId = 10000,
                 //releaseDate = DateTime.Today.ToShortDateString()
             };
