@@ -51,6 +51,8 @@ namespace GhJiraIntegration.Controllers
                         }    
                     }
                 }
+
+                await client.CreateVersion(request.Ref);
                 await client.CreateTicket(request.Ref, ticketList.ToList());
 
                 return Ok("Created ticket");

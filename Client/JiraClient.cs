@@ -60,13 +60,14 @@ namespace GhJiraIntegration.Client
         {
             var jiraRequest = new JiraVersionRequest
             {
-                Name = fixVersion,
-                Description = $"This is for release: ${fixVersion}",
-                ProjectId = 10000,
-                ReleaseDate = DateTime.Today
+                name = fixVersion,
+                description = $"This is for release: ${fixVersion}",
+                projectId = 10000,
+                //releaseDate = DateTime.Today.ToShortDateString()
             };
 
-            await PostToJira(jiraRequest, @"https://gibhubintegration.atlassian.net/rest/api/3/version/");
+            var response = await PostToJira(jiraRequest, @"https://gibhubintegration.atlassian.net/rest/api/3/version/");
+            var stringContent = await response.Content.ReadAsStringAsync();
         }
 
         private async Task<HttpResponseMessage> PostToJira(object jiraRequest, string url)

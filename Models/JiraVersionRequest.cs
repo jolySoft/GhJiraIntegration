@@ -4,9 +4,9 @@ namespace GhJiraIntegration.Models
 {
     public class JiraVersionRequest
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public DateTime ReleaseDate { get; set; }
-        public int ProjectId { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string releaseDate { get; set; }
+        public int projectId { get; set; }
     }
 }
