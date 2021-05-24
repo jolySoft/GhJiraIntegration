@@ -25,7 +25,8 @@ namespace GhJiraIntegration.Controllers
                 var ticketNumberRegex = new Regex(@"GHIN-\d+");
                 if(response.ahead_by > 0)
                 {
-                await client.CreateVersion(request.Ref);
+                    var ticketList = new HashSet<string>();
+                    await client.CreateVersion(request.Ref);
                     foreach(var commit in response.commits)
                     {
                         if (commit.commit.message.Contains("GHIN-"))
