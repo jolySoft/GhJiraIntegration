@@ -20,6 +20,7 @@ namespace GhJiraIntegration.Controllers
             if (request.IsReleaseBranch())
             {
                 var client = new JiraClient();
+                await client.CreateVersion(request.Ref);
                 await client.CreateTicket(request.Ref, new List<string>());
 
                 return Ok("Created ticket");
