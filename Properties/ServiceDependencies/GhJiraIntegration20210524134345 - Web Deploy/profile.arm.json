@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "GhJiraIntegration20210426114648",
+      "defaultValue": "GhJiraIntegration20210524134345",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }

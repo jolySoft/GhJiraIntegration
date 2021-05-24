@@ -41,7 +41,7 @@ namespace GhJiraIntegration.Client
 
             jiraRequest.fields.description = GetTicketUrls(ticketNumbers);
 
-            await PostToJira(jiraRequest, @"https://gibhubintegration.atlassian.net/rest/api/3/issue/");
+            await PostToJira(jiraRequest, @"https://gibhubintegration.atlassian.net/rest/api/2/issue/");
         }
 
         private string GetTicketUrls(List<string> ticketNumbers)
@@ -50,7 +50,7 @@ namespace GhJiraIntegration.Client
 
             foreach (var ticketNumber in ticketNumbers)
             {
-                urls.Append($"https://gibhubintegration.atlassian.net/browse/${ticketNumber}\n");
+                urls.Append($"https://gibhubintegration.atlassian.net/browse/{ticketNumber}\n");
             }
 
             return urls.ToString();
