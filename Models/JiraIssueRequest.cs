@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace GhJiraIntegration.Models
 {
 
-     public class JiraRequest
+     public class JiraIssueRequest
      {
          public Fields fields { get; set; }
      }
