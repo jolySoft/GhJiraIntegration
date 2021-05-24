@@ -25,18 +25,9 @@ namespace GhJiraIntegration.Controllers
                 var client = new JiraClient();
 
                 var githubClient = new GithubClient();
-
-                var githubResponse = await githubClient.GetFromGithub("https://api.github.com/repos/jolySoft/GhJiraIntegration/compare/production...main?");
+                var githubResponse = await githubClient.GetFromGithub($"https://api.github.com/repos/jolySoft/GhJiraIntegration/compare/production...{request.Ref}");
                 var stringContent = await githubResponse.Content.ReadAsStringAsync();
-                var jsonResponse = JsonConvert.DeserializeObject<GitWebhookBranchCompareResponse>(stringContent);
-                //curl - X GET https://api.github.com/repos/jolySoft/GhJiraIntegration--ParamCompare/compare/main...production
-
-                //var response = new GitWebhookBranchCompareResponse
-                //{
-                //    ahead_by = 2,
-                //    commits = new Commit2[] { new Commit2 { commit = new Commit3 { message = "GHIN-6 Create version before creating ticket" } } }
-                //};
-                
+                var jsonResponse = JsonConvert.DeserializeObject<GitWebhookBranchCompareResponse>(stringContent);             
                 var ticketNumberRegex = new Regex(@"GHIN-\d+");
                 var ticketList = new HashSet<string>();
                 if(jsonResponse.ahead_by > 0)
