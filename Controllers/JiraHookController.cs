@@ -26,22 +26,23 @@ namespace GhJiraIntegration.Controllers
 
                 var githubClient = new GithubClient();
 
-                var githubResponse = await githubClient.GetFromGithub("https://api.github.com/repos/jolySoft/GhJiraIntegration--ParamCompare/compare/main...production");
-                var jsonResponse = JsonConvert.DeserializeObject<GitWebhookBranchCompareResponse>( githubResponse.ToString());
+                var githubResponse = await githubClient.GetFromGithub("https://api.github.com/repos/jolySoft/GhJiraIntegration/compare/production...main?");
+                var stringContent = await githubResponse.Content.ReadAsStringAsync();
+                var jsonResponse = JsonConvert.DeserializeObject<GitWebhookBranchCompareResponse>(stringContent);
                 //curl - X GET https://api.github.com/repos/jolySoft/GhJiraIntegration--ParamCompare/compare/main...production
 
-                var response = new GitWebhookBranchCompareResponse
-                {
-                    ahead_by = 2,
-                    commits = new Commit2[] { new Commit2 { commit = new Commit3 { message = "GHIN-6 Create version before creating ticket" } } }
-                };
+                //var response = new GitWebhookBranchCompareResponse
+                //{
+                //    ahead_by = 2,
+                //    commits = new Commit2[] { new Commit2 { commit = new Commit3 { message = "GHIN-6 Create version before creating ticket" } } }
+                //};
                 
                 var ticketNumberRegex = new Regex(@"GHIN-\d+");
                 var ticketList = new HashSet<string>();
-                if(response.ahead_by > 0)
+                if(jsonResponse.ahead_by > 0)
                 {
                     await client.CreateVersion(request.Ref);
-                    foreach(var commit in response.commits)
+                    foreach(var commit in jsonResponse.commits)
                     {
                         if (commit.commit.message.Contains("GHIN-"))
                         {

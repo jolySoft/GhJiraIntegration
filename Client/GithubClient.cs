@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace GhJiraIntegration.Client
@@ -11,21 +12,21 @@ namespace GhJiraIntegration.Client
         public GithubClient()
         {
             _githubClient = new HttpClient();
+            _githubClient.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.28.0");
         }
 
         public async Task<HttpResponseMessage> GetFromGithub( string url)
         {
-            
-            //construct content to send
-            
-            var request = new HttpRequestMessage
-            {
-                RequestUri = new Uri(url),
-                Method = HttpMethod.Get,
-               
-            };
-
-            return await _githubClient.SendAsync(request);
+            //var request = new HttpRequestMessage
+            //{
+            //    RequestUri = new Uri(url),
+            //    Method = HttpMethod.Get,
+            //    Headers =
+            //    {
+            //        {"User-Agent", "PostmanRuntime/7.28.0" }
+            //    }
+            //};
+            return await _githubClient.GetAsync(url);
         }
     }
 }
