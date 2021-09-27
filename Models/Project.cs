@@ -2,6 +2,6 @@
 {
     public class Project
     {
-        public string key { get; set; } //project key
+        public string key { get; set; }
     }
 }
